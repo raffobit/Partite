@@ -1,4 +1,4 @@
-#.venv/Scripts/activate
+#.venv\Scripts\activate
 #python app.py
 from flask import Flask, render_template, request, redirect
 import mysql.connector # type: ignore
