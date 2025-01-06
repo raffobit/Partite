@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestore Partite di Calcio</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>⚽ Gestore Partite di Calcio</h1>
+    
+    <div class="container">
+        <!-- Form per aggiungere una partita -->
+        <form action="/add" method="post">
+            <input type="text" name="team_a" placeholder="Squadra A" required>
+            <input type="text" name="team_b" placeholder="Squadra B" required>
+            <input type="number" name="score_a" placeholder="Punteggio Squadra A" required>
+            <input type="number" name="score_b" placeholder="Punteggio Squadra B" required>
+            <button type="submit">Aggiungi Risultato</button>
+        </form>
+        
+        <!-- Form per filtrare le partite -->
+        <form action="/" method="get" class="filter-form">
+            <input type="text" name="team" placeholder="Filtra per squadra" value="{{ filter_team or '' }}">
+            <button type="submit">Filtra</button>
+        </form>
+
+        <!-- Messaggio se è attivo un filtro -->
+        {% if filter_team %}
+            <p>Filtrato per la squadra: <strong>{{ filter_team }}</strong></p>
+            <a href="/">Rimuovi filtro</a>
+        {% endif %}
+        
+        <!-- Lista delle partite -->
+        <ul>
+            {% for match in matches %}
+                <li>
+                    {{ match.team_a }} ({{ match.score_a }}) vs {{ match.team_b }} ({{ match.score_b }})
+                    <a href="/delete/{{ match.id }}">Elimina</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer>
+        Creato con ❤️ per gli amanti del calcio!
+    </footer>
+</body>
+</html>
